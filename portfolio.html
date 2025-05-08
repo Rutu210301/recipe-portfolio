@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recipe Portfolio | Culinary Expert & Cookbook Author</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary-color: #7A611D;
+      --secondary-color: #f8e8d4;
+      --accent-color: #CA9352;
+      --light-bg: #fffaf4;
+      --dark-text: #333;
+    }
+    
+    body {
+      font-family: 'Montserrat', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--light-bg);
+      color: var(--dark-text);
+      overflow-x: hidden;
+    }
+    
+    .navbar {
+      background-color: var(--secondary-color);
+      box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+      padding: 15px 0;
+      transition: all 0.3s ease;
+    }
+    
+    .navbar.scrolled {
+      padding: 10px 0;
+      background-color: rgba(248, 232, 212, 0.95);
+    }
+    
+    .navbar-brand {
+      font-weight: 700;
+      font-size: 1.5rem;
+      color: var(--primary-color);
+      display: flex;
+      align-items: center;
+    }
+    
+    .navbar-brand img {
+      height: 40px;
+      margin-right: 10px;
+      transition: transform 0.3s ease;
+    }
+    
+    .navbar-brand:hover img {
+      transform: rotate(15deg);
+    }
+    
+    .nav-link {
+      font-weight: 500;
+      color: var(--primary-color);
+      position: relative;
+      margin: 0 10px;
+      transition: color 0.3s ease;
+    }
+    
+    .nav-link:after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      background: var(--accent-color);
+      bottom: 0;
+      left: 0;
+      transition: width 0.3s ease;
+    }
+    
+    .nav-link:hover:after {
+      width: 100%;
+    }
+    
+    .hero {
+      background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('assets/recipe.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      color: white;
+      padding: 250px 0;
+      text-align: left;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .hero:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, rgba(122,97,29,0.3) 0%, rgba(202,147,82,0.1) 100%);
+      z-index: 0;
+    }
+    
+    .hero-content {
+      max-width: 600px;
+      position: relative;
+      z-index: 1;
+      transform: translateY(50px);
+      opacity: 0;
+      animation: fadeInUp 1s ease forwards 0.5s;
+    }
+    
+    .hero h1 {
+      font-size: 3.5rem;
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+    }
+    
+    .hero p {
+      font-size: 1.3rem;
+      margin-bottom: 30px;
+      opacity: 0.9;
+    }
+    
+    .btn-custom {
+      background-color: var(--secondary-color);
+      border: none;
+      color: var(--primary-color);
+      font-weight: 600;
+      padding: 12px 25px;
+      border-radius: 30px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    
+    .btn-custom:hover {
+      background-color: #e0d1b3;
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    }
+    
+    .btn-outline-light {
+      padding: 12px 25px;
+      border-radius: 30px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+    
+    .btn-outline-light:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(255,255,255,0.2);
+    }
+    
+    .featured-section {
+      background-color: var(--light-bg);
+      padding: 60px 0;
+      text-align: center;
+    }
+    
+    .featured-logos img {
+      height: 50px;
+      margin: 15px 25px;
+      opacity: 0.8;
+      transition: all 0.3s ease;
+      filter: grayscale(100%);
+    }
+    
+    .featured-logos img:hover {
+      opacity: 1;
+      filter: grayscale(0%);
+      transform: scale(1.1);
+    }
+    
+    .what-i-do {
+      background-color: #fff;
+      padding: 80px 0;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .what-i-do:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('assets/pattern.png') repeat;
+      opacity: 0.03;
+      z-index: 0;
+    }
+    
+    .what-i-do .card {
+      border: none;
+      background-color: var(--accent-color);
+      border-radius: 10px;
+      padding: 30px;
+      height: 100%;
+      transition: all 0.4s ease;
+      position: relative;
+      z-index: 1;
+      overflow: hidden;
+    }
+    
+    .what-i-do .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+    }
+    
+    .what-i-do .card:after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%);
+      z-index: -1;
+    }
+    
+    .what-i-do .card1 {
+      border-radius: 10px;
+      background-color: var(--secondary-color);
+      padding: 30px;
+      height: 100%;
+      transition: all 0.4s ease;
+    }
+    
+    .what-i-do .card1:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+    }
+    
+    .what-i-do .btn {
+      font-weight: 600;
+      width: 140px;
+      border-radius: 30px;
+      transition: all 0.3s ease;
+    }
+    
+    hr {
+      width: 60px;
+      height: 3px;
+      background-color: white;
+      margin: 20px 0;
+      border: none;
+      opacity: 1;
+    }
+    
+    .testimonials-section {
+      background-image: url(assets/test.jpg) ;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+      background-attachment: fixed;
+      padding: 150px 0;
+      color: #fff;
+    }
+    
+    .testimonials-section .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, rgba(122,97,29,0.8) 0%, rgba(202,147,82,0.6) 100%);
+      z-index: 1;
+    }
+    
+    .testimonials-section .container {
+      position: relative;
+      z-index: 2;
+    }
+    
+    .testimonial-quote {
+      font-size: 1.5rem;
+      line-height: 1.6;
+      position: relative;
+      padding-left: 40px;
+    }
+    
+    .testimonial-quote:before {
+      content: '"';
+      position: absolute;
+      left: 0;
+      top: -20px;
+      font-size: 5rem;
+      color: rgba(255,255,255,0.2);
+      font-family: Georgia, serif;
+    }
+    
+    .story-img-wrapper {
+      position: relative;
+      overflow: hidden;
+      border-radius: 10px;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+      transition: all 0.4s ease;
+    }
+    
+    .story-img-wrapper:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    }
+    
+    .story-img-wrapper img {
+      transition: transform 0.5s ease;
+    }
+    
+    .story-img-wrapper:hover img {
+      transform: scale(1.05);
+    }
+    
+    .story-img-wrapper .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(122, 97, 29, 0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+    
+    .story-img-wrapper:hover .overlay {
+      opacity: 1;
+    }
+    
+    .bottom {
+      background-color: var(--accent-color);
+      color: white;
+      padding: 100px 0;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .bottom h1 {
+      font-weight: 700;
+      position: relative;
+      z-index: 2;
+    }
+    
+    .bottom:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('assets/pattern2.png') repeat;
+      opacity: 0.1;
+      z-index: 1;
+    }
+    
+    .footer {
+      background-color: var(--primary-color);
+      padding: 50px 0 20px;
+      color: white;
+    }
+    
+    .footer p {
+      margin-bottom: 0;
+    }
+    
+    .social-icons {
+      margin-top: 30px;
+    }
+    
+    .social-icons a {
+      color: white;
+      font-size: 1.5rem;
+      margin: 0 15px;
+      transition: all 0.3s ease;
+    }
+    
+    .social-icons a:hover {
+      color: var(--secondary-color);
+      transform: translateY(-5px);
+    }
+    
+    /* Animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+    
+    .pulse {
+      animation: pulse 2s infinite;
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 992px) {
+      .hero h1 {
+        font-size: 2.8rem;
+      }
+      
+      .hero p {
+        font-size: 1.1rem;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .hero {
+        padding: 180px 0;
+        text-align: center;
+      }
+      
+      .hero-content {
+        margin: 0 auto;
+      }
+      
+      .hero h1 {
+        font-size: 2.2rem;
+      }
+      
+      .hero p {
+        font-size: 1rem;
+      }
+      
+      .featured-logos img {
+        height: 40px;
+        margin: 10px 15px;
+      }
+    }
+    
+    @media (max-width: 576px) {
+      .hero {
+        padding: 150px 0;
+      }
+      
+      .hero h1 {
+        font-size: 1.8rem;
+      }
+      
+      .btn-custom, .btn-outline-light {
+        display: block;
+        width: 100%;
+        margin-bottom: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="#home">
+        <svg id="logo-89" width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"><path class="ccustom" d="M39.9449 21.4998H32.8003C26.5594 21.4998 21.5003 26.559 21.5003 32.7998V39.9444C31.3502 39.214 39.2145 31.3497 39.9449 21.4998Z" fill="#775732"></path><path class="ccustom" d="M18.5003 39.9444V32.7998C18.5003 26.559 13.4411 21.4998 7.20026 21.4998H0.0556641C0.785998 31.3497 8.65036 39.214 18.5003 39.9444Z" fill="#775732"></path><path class="ccustom" d="M39.9449 18.4998C39.2145 8.64987 31.3502 0.78551 21.5003 0.0551758V7.19977C21.5003 13.4406 26.5594 18.4998 32.8003 18.4998H39.9449Z" fill="#775732"></path><path class="ccustom" d="M18.5003 0.0551758C8.65036 0.78551 0.785998 8.64987 0.0556641 18.4998H7.20026C13.4411 18.4998 18.5003 13.4406 18.5003 7.19977V0.0551758Z" fill="#775732"></path><path class="ccustom" d="M13.583 19.9998C16.3555 18.6145 18.615 16.355 20.0002 13.5825C21.3855 16.355 23.6449 18.6145 26.4175 19.9998C23.6449 21.385 21.3855 23.6445 20.0002 26.417C18.615 23.6445 16.3555 21.385 13.583 19.9998Z" fill="#CA9352"></path></svg>
+        Recipe Coach
+      </a>
+
+      <!-- Offcanvas Toggle Button -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+        aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- Offcanvas Content -->
+      <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+        <div class="offcanvas-header">
+          <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Recipe Coach</h5>
+          <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+            <li class="nav-item"><a class="nav-link" href="#recipe-books">Recipe Books</a></li>
+            <li class="nav-item"><a class="nav-link" href="#recipes">Recipes</a></li>
+            <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section id="home" class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <h1 class="animate__animated animate__fadeIn">Delicious Recipes & Inspiring Cookbooks</h1>
+        <p class="lead animate__animated animate__fadeIn animate__delay-1s">Explore my handpicked selection of mouthwatering recipes and vibrant cookbooks to spark your culinary creativity.</p>
+        <div class="mt-4 animate__animated animate__fadeIn animate__delay-1s">
+          <a href="#recipe-books" class="btn btn-custom me-3 pulse">Start Cooking</a>
+          <a href="#about" class="btn btn-outline-light">Learn More</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Section -->
+  <section class="featured-section">
+    <div class="container">
+      <h4 class="mb-5 fw-bold" style="color: var(--primary-color);">As Featured In:</h4>
+      <div class="featured-logos d-flex flex-wrap justify-content-center align-items-center">
+        <img src="assets/logoipsum-237.svg" alt="Forbes" class="animate__animated animate__fadeIn animate__delay-1s">
+        <img src="assets/logoipsum-256.svg" alt="BBC" class="animate__animated animate__fadeIn animate__delay-1-5s">
+        <img src="assets/logoipsum-288.svg" alt="NatGeo" class="animate__animated animate__fadeIn animate__delay-2s">
+        <img src="assets/logoipsum-330.svg" alt="Times" class="animate__animated animate__fadeIn animate__delay-2-5s">
+      </div>
+    </div>
+  </section>
+
+  <!-- What I Do Section -->
+  <section class="what-i-do" id="about">
+    <div class="container text-center">
+      <h2 class="mb-3 fw-bold" style="color: var(--primary-color);">What I Do</h2>
+      <p class="mb-5">I create and share exceptional culinary content—from books to blogs—to inspire your cooking journey.</p>
+      <div class="row g-4">
+        <div class="col-md-4 animate__animated animate__fadeInUp">
+          <div class="card h-100 p-4">
+            <hr>
+            <h5 style="font-weight: bolder; font-size: 40px; color: #fff; text-align: left;">Recipe Development</h5>
+            <p style="color: white; text-align: left;">I develop recipes that are not only easy to follow but also packed with flavor and nutrition.</p>
+            <a href="#about" class="btn btn-outline-light mt-3">Read More</a>
+          </div>
+        </div>
+        <div class="col-md-4 animate__animated animate__fadeInUp animate__delay-1s">
+          <div class="card h-100 p-4">
+            <hr>
+            <h5 style="font-weight: bolder; font-size: 40px; color: #fff; text-align: left;">Cooking Workshops</h5>
+            <p style="color: white; text-align: left;">Engaging workshops that guide you step-by-step in becoming a kitchen pro.</p>
+            <a href="#about" class="btn btn-outline-light mt-3">Read More</a>
+          </div>
+        </div>
+        <div class="col-md-4 animate__animated animate__fadeInUp animate__delay-2s">
+          <div class="card h-100 p-4">
+            <hr>
+            <h5 style="font-weight: bolder; font-size: 40px; color: #fff; text-align: left;">Nutrition Guidance</h5>
+            <p style="color: white; text-align: left;">Helping you balance taste and health through personalized nutrition plans.</p>
+            <a href="#about" class="btn btn-outline-light mt-3">Read More</a>
+          </div>
+        </div>
+
+        <!-- Second Row -->
+        <div class="col-md-4 animate__animated animate__fadeIn">
+          <div class="card1 h-100 p-4">
+            <h5 style="font-weight: bolder; font-size: 40px; color: var(--primary-color); text-align: left;">Need Advice?</h5>
+            <p style="color: var(--primary-color); text-align: left;">Whether you're just starting or looking to improve, I'm here to help you.</p>
+            <a href="#" class="btn btn-outline-light mt-3" style="color: var(--primary-color); border-color: var(--primary-color);">Call Me</a>
+          </div>
+        </div>
+        <div class="col-md-2 animate__animated animate__fadeIn animate__delay-1s">
+          <div class="card1 h-100 p-4 d-flex align-items-center justify-content-center">
+            <img src="assets/food.png" class="img-fluid" alt="Culinary Art">
+          </div>
+        </div>
+        <div class="col-md-6 animate__animated animate__fadeIn animate__delay-2s">
+          <div class="card1 h-100 p-4">
+            <h5 style="font-weight: bolder; font-size: 30px; color: var(--primary-color); text-align: left;">My Recipe Books</h5>
+            <p style="color: var(--primary-color); text-align: left;">Dive into my curated collection of books and online recipes tailored for every taste and skill level.</p>
+            <a href="#recipe-books" class="btn btn-outline-light mt-3" style="color: var(--primary-color); border-color: var(--primary-color);">Explore Books</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section class="testimonials-section" id="testimonials">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row justify-content-end">
+        <div class="col-lg-6 col-md-8 animate__animated animate__fadeIn">
+          <h2 class="display-4 fw-bold mb-4">Testimonials</h2>
+          <p class="testimonial-quote">"The recipe book completely changed how I approach cooking! The step-by-step guidance and vibrant flavors made me fall in love with the kitchen again."</p>
+          <hr class="mx-0 ms-auto" style="border-top: 3px solid #fff; width: 60px;">
+          <h5 class="mt-4">— Rushikesh Patil</h5>
+          <div class="mt-5">
+            <a href="#contact" class="btn btn-custom me-3">Get in Touch</a>
+            <a href="#recipe-books" class="btn btn-outline-light">View Books</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- My Story Section -->
+  <section style="background-color: var(--light-bg); padding: 80px 0;" id="about-me">
+    <div class="container">
+      <div class="row align-items-center">
+        <!-- Left Box -->
+        <div class="col-md-6 mb-4 mb-md-0 animate__animated animate__fadeInLeft">
+          <div class="p-4 h-100" style="background-color: #fff; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
+            <h2 class="mb-4 fw-bold" style="color: var(--primary-color);">My Culinary Journey</h2>
+            <p>From a young age, I was fascinated by the alchemy of cooking - how simple ingredients could transform into something magical. This passion led me to culinary school where I honed my skills in both traditional and modern techniques.</p>
+            <p>After years working in professional kitchens, I discovered my true calling was in teaching others how to cook with confidence. My approach focuses on building fundamental skills while keeping the process enjoyable and stress-free.</p>
+            <p>Today, I combine my professional training with a practical, home-cook perspective to create recipes and guides that work in real kitchens with real schedules.</p>
+            <div class="mt-4">
+              <a href="#contact" class="btn btn-custom me-3">Work With Me</a>
+              <a href="#recipes" class="btn btn-outline-secondary">View Recipes</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Box -->
+        <div class="col-md-6 animate__animated animate__fadeInRight">
+          <div class="story-img-wrapper">
+            <img src="assets/profile 1.webp" alt="My Story" class="img-fluid w-100">
+            <div class="overlay d-flex flex-column align-items-center justify-content-center">
+              <h3 class="text-white mb-3">My Journey</h3>
+              <p class="text-white text-center px-4">From amateur cook to professional chef and educator</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Call to Action -->
+  <section class="bottom text-center" id="contact">
+    <div class="container">
+      <h1 class="animate__animated animate__pulse animate__infinite animate__slower">Let Me Help You Master Cooking<br>the Right Way</h1>
+      <div class="mt-5 animate__animated animate__fadeInUp animate__delay-1s">
+        <a href="#contact" class="btn btn-light btn-lg me-3" style="color: var(--primary-color); font-weight: 600;">Book a Session</a>
+        <a href="#recipe-books" class="btn btn-outline-light btn-lg">Browse Books</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 mb-4 mb-md-0">
+          <h5 class="mb-3">Recipe Coach</h5>
+          <p>Transforming home cooks into confident chefs through recipes, books, and personalized guidance.</p>
+        </div>
+        <div class="col-md-4 mb-4 mb-md-0">
+          <h5 class="mb-3">Quick Links</h5>
+          <ul class="list-unstyled">
+            <li><a href="#home" class="text-white">Home</a></li>
+            <li><a href="#about" class="text-white">About</a></li>
+            <li><a href="#recipe-books" class="text-white">Recipe Books</a></li>
+            <li><a href="#recipes" class="text-white">Recipes</a></li>
+            <li><a href="#contact" class="text-white">Contact</a></li>
+          </ul>
+        </div>
+        <div class="col-md-4">
+          <h5 class="mb-3">Connect With Me</h5>
+          <div class="social-icons">
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-pinterest"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+      </div>
+      <hr class="my-4" style="border-color: rgba(255,255,255,0.1);">
+      <p>&copy; 2025 Recipe Coach. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Navbar scroll effect
+    window.addEventListener('scroll', function() {
+      const navbar = document.querySelector('.navbar');
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+    
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+    
+    // Animation on scroll
+    function animateOnScroll() {
+      const elements = document.querySelectorAll('.animate__animated');
+      
+      elements.forEach(element => {
+        const elementPosition = element.getBoundingClientRect().top;
+        const screenPosition = window.innerHeight / 1.2;
+        
+        if (elementPosition < screenPosition) {
+          const animationClass = element.classList[1];
+          element.classList.add(animationClass);
+        }
+      });
+    }
+    
+    window.addEventListener('scroll', animateOnScroll);
+    window.addEventListener('load', animateOnScroll);
+  </script>
+</body>
+</html>
